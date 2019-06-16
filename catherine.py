@@ -9,7 +9,7 @@ sheet1 = wb.add_sheet('Sheet 1', cell_overwrite_ok=True)
 x=0
 
 for page_num in range(1,4):
-    catalog_keyword = "세탁기" #에어컨 세탁기 냉장고 등등 키워드 골라 넣으면 엑셀 파일 자동 생성
+    catalog_keyword = "에어컨" #에어컨 세탁기 냉장고 등등 키워드 골라 넣으면 엑셀 파일 자동 생성
     enuri_url = "http://www.enuri.com/list.jsp?cate=0602&from=search&islist=Y&skeyword="+catalog_keyword+"&cate_keyword=Y&hyphen_2=false&page="+str(page_num)
     print(enuri_url)
 
