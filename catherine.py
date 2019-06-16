@@ -9,8 +9,8 @@ sheet1 = wb.add_sheet('Sheet 1', cell_overwrite_ok=True)
 x=0
 
 for page_num in range(1,4):
-    product_keyword = "냉장고" #에어컨 세탁기 냉장고 등등이 20종류.
-    enuri_url = "http://www.enuri.com/list.jsp?cate=0602&from=search&islist=Y&skeyword="+product_keyword+"&cate_keyword=Y&hyphen_2=false&page="+str(page_num)
+    catalog_keyword = "세탁기" #에어컨 세탁기 냉장고 등등 키워드 골라 넣으면 엑셀 파일 자동 생성
+    enuri_url = "http://www.enuri.com/list.jsp?cate=0602&from=search&islist=Y&skeyword="+catalog_keyword+"&cate_keyword=Y&hyphen_2=false&page="+str(page_num)
     print(enuri_url)
 
     options = webdriver.ChromeOptions()
@@ -29,10 +29,12 @@ for page_num in range(1,4):
     all_title = soup.find_all('a',{'class':{'detailMultiLink prodName'}})
     product_omitted_seventh_list=soup.find_all('li',{'class':'prodItem wide plustop'})
 
-    seventh_soup = product_omitted_seventh_list[0]
-    print(seventh_soup)
-
-    product_list.insert(6,seventh_soup)
+    if not product_omitted_seventh_list:
+        print("list is empty")
+    else:
+        seventh_soup = product_omitted_seventh_list[0]
+        print(seventh_soup)
+        product_list.insert(6,seventh_soup)
 
     index = 0
     while index < len(product_list):
@@ -53,4 +55,4 @@ for page_num in range(1,4):
         #prepare for next iteration
         index +=1
         x +=1
-        wb.save('냉장고 Final.xls')
+        wb.save(catalog_keyword+ ' Listup.xls')
